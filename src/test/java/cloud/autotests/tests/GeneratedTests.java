@@ -2,16 +2,39 @@ package cloud.autotests.tests;
 
 import cloud.autotests.helpers.DriverUtils;
 import com.codeborne.selenide.Condition;
+import com.github.javafaker.Faker;
 import io.qameta.allure.Description;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 import static io.qameta.allure.Allure.step;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
 public class GeneratedTests extends TestBase {
+
+    Faker faker = new Faker();
+    String email = faker.internet().emailAddress();
+
+    @Test
+    @Description("Check log in for new email")
+    @DisplayName("Login for new email")
+    void negativeLogin() {
+        step("Open 'https://www.kinopoisk.ru/'", () -> {
+            open("https://www.kinopoisk.ru/");
+        });
+
+        step("Open login form", () -> {
+            $(byText("Войти")).click();
+        });
+
+        step("Verify login", () -> {
+            $("#passp-field-login for new email").setValue(email).pressEnter();
+            $(".passp-title").shouldHave(Condition.text("Мы отправили письмо с кодом на " + email+". Пожалуйста, введите его для завершения регистрации."));
+        });
+    }
 
     @Test
     @Description("Check opening and working standard search")
@@ -65,8 +88,6 @@ public class GeneratedTests extends TestBase {
 
         step("Verify search results", () -> {
             $(".moviename-big").$(".text-orange").shouldHave(Condition.text("Расширенный поиск")).shouldBe(Condition.visible);
-//            $("td[align='right']").$(".moviename-big").$(".all").click();
-//            $(".home.home_headline").shouldHave(Condition.text("Навигатор по лучшим фильмам")).shouldBe(Condition.visible);
         });
     }
 
