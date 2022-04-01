@@ -21,18 +21,14 @@ public class GeneratedTests extends TestBase {
     @Test
     @Description("Check log in for new email")
     @DisplayName("Login for new email")
-    void negativeLogin() {
-        step("Open 'https://www.kinopoisk.ru/'", () -> {
-            open("https://www.kinopoisk.ru/");
-        });
-
+    void newLogin() {
         step("Open login form", () -> {
             $(byText("Войти")).click();
         });
 
         step("Verify login", () -> {
-            $("#passp-field-login for new email").setValue(email).pressEnter();
-            $(".passp-title").shouldHave(Condition.text("Мы отправили письмо с кодом на " + email+". Пожалуйста, введите его для завершения регистрации."));
+            $("#passp-field-login").setValue(email).pressEnter();
+            $(".passp-title").shouldHave(Condition.text("Мы отправили письмо с кодом на " + email + ". Пожалуйста, введите его для завершения регистрации."));
         });
     }
 
@@ -40,10 +36,6 @@ public class GeneratedTests extends TestBase {
     @Description("Check opening and working standard search")
     @DisplayName("Standard search")
     void generatedTest() {
-        step("Open 'https://www.kinopoisk.ru/'", () -> {
-            open("https://www.kinopoisk.ru/");
-        });
-
         step("Open search", () -> {
             $("input[placeholder='Фильмы, сериалы, персоны']").setValue("Триггер").pressEnter();
         });
@@ -57,10 +49,6 @@ public class GeneratedTests extends TestBase {
     @Description("Check opening and working random search")
     @DisplayName("Random search")
     void checkSearch() {
-        step("Open 'https://www.kinopoisk.ru/'", () -> {
-            open("https://www.kinopoisk.ru/");
-        });
-
         step("Open search", () -> {
             $("button[aria-label='submit']").click();
         });
@@ -78,10 +66,6 @@ public class GeneratedTests extends TestBase {
     @Description("Check opening advanced search")
     @DisplayName("Advanced search")
     void checkAdvancedSearch() {
-        step("Open 'https://www.kinopoisk.ru/'", () -> {
-            open("https://www.kinopoisk.ru/");
-        });
-
         step("Open search", () -> {
             $("a[aria-label='advanced-search']").click();
         });
@@ -95,9 +79,6 @@ public class GeneratedTests extends TestBase {
     @Description("Check title")
     @DisplayName("Page title should have header text")
     void titleTest() {
-        step("Open url 'https://www.kinopoisk.ru/'", () ->
-            open("https://www.kinopoisk.ru/"));
-
         step("Page title should have text 'Кинопоиск. Все фильмы планеты.'", () -> {
             String expectedTitle = "Кинопоиск. Все фильмы планеты.";
             String actualTitle = title();
@@ -110,9 +91,6 @@ public class GeneratedTests extends TestBase {
     @Description("Check logs for errors")
     @DisplayName("Page console log should not have errors")
     void consoleShouldNotHaveErrorsTest() {
-        step("Open url 'https://www.kinopoisk..ru/'", () ->
-            open("https://www.kinopoisk.ru/"));
-
         step("Console logs should not contain text 'SEVERE'", () -> {
             String consoleLogs = DriverUtils.getConsoleLogs();
             String errorText = "SEVERE";
